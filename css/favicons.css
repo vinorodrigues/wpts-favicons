@@ -1,0 +1,16 @@
+#icon-favicon {
+	background-image: url('../img/favicon.png');
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.image-preview {
+	background: url('../img/hatch.png') top left repeat;
+}
+
+span.fake-apple {
+	display: inline-block;
+	margin-left: 5em;
+	padding-left: 40px;
+	background: url('../img/apple.png') 4px center no-repeat;
+}
