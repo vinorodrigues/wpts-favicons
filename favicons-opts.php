@@ -1,14 +1,12 @@
 <?php
 
 
-// Small fix to work arround windows and virtual paths while in dev env.
-if ( defined('WP_DEBUG') && WP_DEBUG )
-	define( 'FAVICONS_PLUGIN_SLUG',
-		str_replace('-opts', '', basename(dirname(__FILE__)) . '/' . pathinfo(__FILE__, PATHINFO_FILENAME) . '.php' ) );
 if ( ! defined('FAVICONS_PLUGIN_SLUG') )
 	define( 'FAVICONS_PLUGIN_SLUG',
 		str_replace('-opts', '', plugin_basename(__FILE__)) );
 
+
+include_once 'inc/lib-ts/opt-common.php';
 
 /**
  * Check if Settings API supported
@@ -232,12 +230,14 @@ function ts_favicons_option_field_apple_precomposed() {
  *
  */
 function ts_favicons_admin_options_page() {
+	global $title;
+
 	if ( ! current_user_can( 'manage_options' ) )
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 ?>
 <div class="wrap">
 	<?php screen_icon('favicon'); ?>
-	<h2><?php _e('TS Favicons Plugin Options'); ?></h2>
+	<h2><?php echo $title; ?></h2>
 	<p></p>
 
 	<form method="post" action="options.php">
@@ -286,8 +286,8 @@ function ts_favicons_plugin_action_links( $actions /* , $plugin_file, $plugin_da
  */
 function ts_favicons_admin_menu() {
 	add_filter( 'plugin_action_links_' . FAVICONS_PLUGIN_SLUG, 'ts_favicons_plugin_action_links', 10 /* , 4 */ );
-	add_theme_page(
-		__('TS Favicons Plugin Options'),
+	add_tecsmith_page(
+		__('Favicons Plugin Options'),
 		__('Favicons'),
 		'manage_options',
 		'ts-favicons',
